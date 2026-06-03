@@ -1,0 +1,57 @@
+import { Edit, useForm, useSelect } from "@refinedev/antd";
+import { Form, Input, InputNumber, Select } from "antd";
+
+export const VehicleEdit = () => {
+  const { formProps, saveButtonProps, queryResult } = useForm({
+    resource: "vehicles",
+  });
+
+  const { selectProps: driverSelectProps } = useSelect({
+    resource: "drivers",
+    optionLabel: "name",
+    optionValue: "id",
+    defaultValue: queryResult?.data?.data?.drivers?.map((dv) => dv.driverId),
+  });
+
+  return (
+    <Edit saveButtonProps={saveButtonProps}>
+      <Form {...formProps} layout="vertical">
+        <Form.Item
+          label="Registration Number"
+          name="registrationNumber"
+          rules={[{ required: true, message: "Registration number is required" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item label="Make" name="make">
+          <Input />
+        </Form.Item>
+
+        <Form.Item label="Model" name="model">
+          <Input />
+        </Form.Item>
+
+        <Form.Item label="Year" name="year">
+          <InputNumber
+            min={1900}
+            max={new Date().getFullYear() + 1}
+            style={{ width: "100%" }}
+          />
+        </Form.Item>
+
+        <Form.Item label="Image URL" name="image">
+          <Input />
+        </Form.Item>
+
+        <Form.Item label="Assign Drivers" name="driverIds">
+          <Select
+            mode="multiple"
+            placeholder="Select drivers"
+            {...driverSelectProps}
+          />
+        </Form.Item>
+      </Form>
+    </Edit>
+  );
+};

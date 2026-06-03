@@ -23,7 +23,7 @@ const { Title } = Typography;
 
 export const DashboardPage = () => {
   const { data, isLoading } = useCustom({
-    url: "/api/dashboard/stats",
+    url: "/dashboard/stats",
     method: "get",
   });
 

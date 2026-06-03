@@ -1,12 +1,7 @@
 import { stringify } from "query-string";
 import axiosInstance from "../utils/axios";
 
-const API_URL = "/api";
-
-/**
- * Custom data provider compatible with Refine's simple-rest conventions.
- * Uses our axiosInstance (with JWT interceptors) for all requests.
- */
+// axiosInstance already has baseURL="/api", so resource paths are relative (no /api prefix needed)
 export const dataProvider = {
   getList: async ({ resource, pagination, sorters, filters, meta }) => {
     const { current = 1, pageSize = 10 } = pagination ?? {};
@@ -34,8 +29,7 @@ export const dataProvider = {
       });
     }
 
-    const url = `${API_URL}/${resource}`;
-    const { data, headers } = await axiosInstance.get(url, { params });
+    const { data, headers } = await axiosInstance.get(`/${resource}`, { params });
 
     const total = +headers["x-total-count"] || data.length;
 
@@ -43,41 +37,33 @@ export const dataProvider = {
   },
 
   getOne: async ({ resource, id }) => {
-    const { data } = await axiosInstance.get(`${API_URL}/${resource}/${id}`);
+    const { data } = await axiosInstance.get(`/${resource}/${id}`);
     return { data };
   },
 
   create: async ({ resource, variables }) => {
-    const { data } = await axiosInstance.post(
-      `${API_URL}/${resource}`,
-      variables
-    );
+    const { data } = await axiosInstance.post(`/${resource}`, variables);
     return { data };
   },
 
   update: async ({ resource, id, variables }) => {
-    const { data } = await axiosInstance.patch(
-      `${API_URL}/${resource}/${id}`,
-      variables
-    );
+    const { data } = await axiosInstance.patch(`/${resource}/${id}`, variables);
     return { data };
   },
 
   deleteOne: async ({ resource, id }) => {
-    const { data } = await axiosInstance.delete(
-      `${API_URL}/${resource}/${id}`
-    );
+    const { data } = await axiosInstance.delete(`/${resource}/${id}`);
     return { data };
   },
 
   getMany: async ({ resource, ids }) => {
     const results = await Promise.all(
-      ids.map((id) => axiosInstance.get(`${API_URL}/${resource}/${id}`))
+      ids.map((id) => axiosInstance.get(`/${resource}/${id}`))
     );
     return { data: results.map((r) => r.data) };
   },
 
-  getApiUrl: () => API_URL,
+  getApiUrl: () => "/api",
 
   custom: async ({ url, method, payload, query, headers }) => {
     let requestUrl = `${url}?`;
