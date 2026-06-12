@@ -63,7 +63,7 @@ export const dataProvider = {
     return { data: results.map((r) => r.data) };
   },
 
-  getApiUrl: () => "/api",
+  getApiUrl: () => import.meta.env.VITE_API_URL || "/api",
 
   custom: async ({ url, method, payload, query, headers }) => {
     let requestUrl = `${url}?`;
