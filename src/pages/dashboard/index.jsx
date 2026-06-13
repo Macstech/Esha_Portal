@@ -121,9 +121,10 @@ export const DashboardPage = () => {
       key: "role",
       render: (role) => {
         const colorMap = {
-          SUPER_ADMIN: "red",
-          EDITOR: "blue",
-          VIEWER: "default",
+          ADMIN: "red",
+          VENDOR: "blue",
+          DRIVER: "purple",
+          SUPERVISOR: "green",
         };
         return <Tag color={colorMap[role]}>{role.replace("_", " ")}</Tag>;
       },

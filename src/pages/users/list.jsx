@@ -16,9 +16,10 @@ export const UserList = () => {
   });
 
   const roleColorMap = {
-    SUPER_ADMIN: "red",
-    EDITOR: "blue",
-    VIEWER: "default",
+    ADMIN: "red",
+    VENDOR: "blue",
+    DRIVER: "purple",
+    SUPERVISOR: "green",
   };
 
   return (

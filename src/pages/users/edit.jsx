@@ -36,9 +36,10 @@ export const UserEdit = () => {
         <Form.Item label="Role" name="role">
           <Select
             options={[
-              { label: "Super Admin", value: "SUPER_ADMIN" },
-              { label: "Editor", value: "EDITOR" },
-              { label: "Viewer", value: "VIEWER" },
+              { label: "Admin", value: "ADMIN" },
+              { label: "Vendor", value: "VENDOR" },
+              { label: "Driver", value: "DRIVER" },
+              { label: "Supervisor", value: "SUPERVISOR" },
             ]}
           />
         </Form.Item>

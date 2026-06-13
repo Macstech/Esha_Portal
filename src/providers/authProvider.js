@@ -12,7 +12,12 @@ export const authProvider = {
       localStorage.setItem("refresh_token", data.refreshToken);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      return { success: true, redirectTo: "/" };
+      const roleRedirects = {
+        VENDOR: "/vendor-dashboard",
+        SUPERVISOR: "/supervisor-dashboard",
+      };
+
+      return { success: true, redirectTo: roleRedirects[data.user.role] || "/" };
     } catch (error) {
       return {
         success: false,

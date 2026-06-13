@@ -42,6 +42,16 @@ export const resources = [
     },
   },
 
+  // 1c. Supervisor Dashboard
+  {
+    name: "supervisor-dashboard",
+    list: "/supervisor-dashboard",
+    meta: {
+      label: "Supervisor Dashboard",
+      icon: <SafetyCertificateOutlined />,
+    },
+  },
+
   // 2. Vendor Management
   {
     name: "vendors",

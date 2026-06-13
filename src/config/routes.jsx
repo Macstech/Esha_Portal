@@ -51,6 +51,7 @@ import { LoadList, LoadCreate, LoadEdit, LoadShow } from "../pages/loads";
 import { LoadHistoryList, LoadHistoryShow } from "../pages/load-history";
 import { SummaryReport, DriversReport, VehiclesReport, LoadsReport } from "../pages/reports";
 import { VendorDashboard } from "../pages/vendor-dashboard";
+import { SupervisorDashboard } from "../pages/supervisor-dashboard";
 import {
   ContentList,
   ContentCreate,
@@ -90,6 +91,7 @@ export const AppRoutes = () => (
     >
       <Route index element={<DashboardPage />} />
       <Route path="/vendor-dashboard" element={<VendorDashboard />} />
+      <Route path="/supervisor-dashboard" element={<SupervisorDashboard />} />
 
       <Route path="/posts">
         <Route index element={<PostList />} />

@@ -36,12 +36,13 @@ export const UserCreate = () => {
         >
           <Input.Password placeholder="Minimum 6 characters" />
         </Form.Item>
-        <Form.Item label="Role" name="role" initialValue="VIEWER">
+        <Form.Item label="Role" name="role" initialValue="VENDOR">
           <Select
             options={[
-              { label: "Super Admin", value: "SUPER_ADMIN" },
-              { label: "Editor", value: "EDITOR" },
-              { label: "Viewer", value: "VIEWER" },
+              { label: "Admin", value: "ADMIN" },
+              { label: "Vendor", value: "VENDOR" },
+              { label: "Driver", value: "DRIVER" },
+              { label: "Supervisor", value: "SUPERVISOR" },
             ]}
           />
         </Form.Item>
