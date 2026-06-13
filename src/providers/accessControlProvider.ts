@@ -18,6 +18,13 @@ const PARENT_GROUPS = [
   "website",
 ];
 
+// Vendor role: limited to their own dashboard + load status updates
+const VENDOR_PERMISSIONS: Record<string, string[]> = {
+  "vendor-dashboard": LIST_ONLY,
+  loads: ["list", "show", "edit"],
+  "load-history": READ_ONLY,
+};
+
 export const accessControlProvider = {
   can: async ({ resource, action }: { resource: string; action: string; params?: any }) => {
     const user = localStorage.getItem("user");
@@ -52,6 +59,7 @@ export const accessControlProvider = {
         "reports-loads": LIST_ONLY,
         // Dashboard
         dashboard: LIST_ONLY,
+        "vendor-dashboard": LIST_ONLY,
         // Website
         "site-home": LIST_ONLY,
         "site-contact": LIST_ONLY,
@@ -84,6 +92,7 @@ export const accessControlProvider = {
         "reports-loads": LIST_ONLY,
         // Dashboard
         dashboard: LIST_ONLY,
+        "vendor-dashboard": LIST_ONLY,
         // Website
         "site-home": LIST_ONLY,
         "site-contact": LIST_ONLY,
@@ -116,6 +125,7 @@ export const accessControlProvider = {
         "reports-loads": LIST_ONLY,
         // Dashboard
         dashboard: LIST_ONLY,
+        "vendor-dashboard": LIST_ONLY,
         // Website
         "site-home": LIST_ONLY,
         "site-contact": LIST_ONLY,
@@ -127,6 +137,8 @@ export const accessControlProvider = {
         categories: READ_ONLY,
         media: READ_ONLY,
       },
+
+      VENDOR: VENDOR_PERMISSIONS,
     };
 
     const rolePerms = permissions[role];

@@ -32,6 +32,16 @@ export const resources = [
     },
   },
 
+  // 1b. Vendor Dashboard
+  {
+    name: "vendor-dashboard",
+    list: "/vendor-dashboard",
+    meta: {
+      label: "Vendor Dashboard",
+      icon: <TruckOutlined />,
+    },
+  },
+
   // 2. Vendor Management
   {
     name: "vendors",
