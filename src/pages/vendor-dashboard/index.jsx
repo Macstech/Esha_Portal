@@ -28,13 +28,15 @@ const { Title, Text } = Typography;
 
 const STATUS_COLORS = {
   PENDING:    "orange",
-  IN_TRANSIT: "blue",
+  ASSIGNED:   "blue",
+  IN_TRANSIT: "cyan",
   DELIVERED:  "green",
   CANCELLED:  "red",
 };
 
 const STATUS_ICONS = {
   PENDING:    <ClockCircleOutlined />,
+  ASSIGNED:   <CarOutlined />,
   IN_TRANSIT: <TruckOutlined />,
   DELIVERED:  <CheckCircleOutlined />,
   CANCELLED:  <CloseCircleOutlined />,
@@ -179,6 +181,7 @@ export const VendorDashboard = () => {
   const stats = useMemo(() => ({
     total:     allLoads.length,
     pending:   allLoads.filter((l) => l.status === "PENDING").length,
+    assigned:  allLoads.filter((l) => l.status === "ASSIGNED").length,
     inTransit: allLoads.filter((l) => l.status === "IN_TRANSIT").length,
     delivered: allLoads.filter((l) => l.status === "DELIVERED").length,
     cancelled: allLoads.filter((l) => l.status === "CANCELLED").length,
@@ -265,43 +268,19 @@ export const VendorDashboard = () => {
     {
       title: "Actions",
       key: "actions",
-      width: 200,
+      width: 160,
       render: (_, record) => (
         <Space size={4} wrap>
+          {/* Vendor can cancel their own PENDING orders */}
           {record.status === "PENDING" && (
-            <>
-              <Tooltip title="Accept — start this load">
-                <Button
-                  size="small"
-                  type="primary"
-                  onClick={() => changeStatus(record, "IN_TRANSIT", "Accepted by vendor")}
-                  loading={updating}
-                >
-                  Accept
-                </Button>
-              </Tooltip>
-              <Tooltip title="Reject this load">
-                <Button
-                  size="small"
-                  danger
-                  onClick={() => changeStatus(record, "CANCELLED", "Rejected by vendor")}
-                  loading={updating}
-                >
-                  Reject
-                </Button>
-              </Tooltip>
-            </>
-          )}
-          {record.status === "IN_TRANSIT" && (
-            <Tooltip title="Mark as delivered">
+            <Tooltip title="Cancel this order">
               <Button
                 size="small"
-                type="primary"
-                style={{ background: "#52c41a", borderColor: "#52c41a" }}
-                onClick={() => changeStatus(record, "DELIVERED", "Delivered by vendor")}
+                danger
+                onClick={() => changeStatus(record, "CANCELLED", "Cancelled by vendor")}
                 loading={updating}
               >
-                Mark Delivered
+                Cancel
               </Button>
             </Tooltip>
           )}
@@ -333,9 +312,10 @@ export const VendorDashboard = () => {
             {[
               { label: "Total Loads",  value: stats.total,     color: "#1890ff", icon: <TruckOutlined />,        filter: null },
               { label: "Pending",      value: stats.pending,   color: "#fa8c16", icon: <ClockCircleOutlined />,  filter: "PENDING" },
-              { label: "In Transit",   value: stats.inTransit, color: "#1890ff", icon: <TruckOutlined />,        filter: "IN_TRANSIT" },
+              { label: "Assigned",     value: stats.assigned,  color: "#1890ff", icon: <CarOutlined />,          filter: "ASSIGNED" },
+              { label: "In Transit",   value: stats.inTransit, color: "#13c2c2", icon: <TruckOutlined />,        filter: "IN_TRANSIT" },
               { label: "Delivered",    value: stats.delivered, color: "#52c41a", icon: <CheckCircleOutlined />,  filter: "DELIVERED" },
-              { label: "Cancelled",    value: stats.cancelled, color: "#ff4d4f", icon: <CloseCircleOutlined />, filter: "CANCELLED" },
+              { label: "Cancelled",    value: stats.cancelled, color: "#ff4d4f", icon: <CloseCircleOutlined />,  filter: "CANCELLED" },
             ].map((s) => (
               <Col xs={12} sm={8} md={6} lg={4} key={s.label} style={{ flex: 1, minWidth: 120 }}>
                 <Card
@@ -384,7 +364,7 @@ export const VendorDashboard = () => {
                 style={{ width: 160 }}
                 value={statusFilter}
                 onChange={setStatusFilter}
-                options={["PENDING","IN_TRANSIT","DELIVERED","CANCELLED"].map((s) => ({
+                options={["PENDING","ASSIGNED","IN_TRANSIT","DELIVERED","CANCELLED"].map((s) => ({
                   label: <Tag color={STATUS_COLORS[s]}>{s}</Tag>,
                   value: s,
                 }))}
@@ -431,7 +411,7 @@ export const VendorDashboard = () => {
             <Row gutter={8} justify="center">
               {[
                 { label: "Pending",   value: stats.pending,   color: "#fa8c16" },
-                { label: "Active",    value: stats.inTransit, color: "#1890ff" },
+                { label: "Assigned",  value: stats.assigned,  color: "#1890ff" },
                 { label: "Done",      value: stats.delivered, color: "#52c41a" },
               ].map((s) => (
                 <Col key={s.label} span={8}>

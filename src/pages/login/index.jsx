@@ -11,12 +11,6 @@ export const LoginPage = () => {
           </h1>
         </div>
       }
-      formProps={{
-        initialValues: {
-          email: "admin@contenthub.com",
-          password: "admin123",
-        },
-      }}
     />
   );
 };

@@ -1,5 +1,5 @@
 import { Edit, useForm, useSelect } from "@refinedev/antd";
-import { Form, Select, DatePicker, Input } from "antd";
+import { Form, Select, DatePicker, Input, Row, Col } from "antd";
 import dayjs from "dayjs";
 
 export const SupervisorAssignmentEdit = () => {
@@ -38,21 +38,40 @@ export const SupervisorAssignmentEdit = () => {
           endDate: record?.endDate ? dayjs(record.endDate) : undefined,
         }}
       >
-        <Form.Item label="Supervisor" name="supervisorId" rules={[{ required: true, message: "Supervisor is required" }]}>
-          <Select {...supervisorSelectProps} />
-        </Form.Item>
-        <Form.Item label="Driver" name="driverId" rules={[{ required: true, message: "Driver is required" }]}>
-          <Select {...driverSelectProps} />
-        </Form.Item>
-        <Form.Item label="Vehicle" name="vehicleId">
-          <Select allowClear {...vehicleSelectProps} />
-        </Form.Item>
-        <Form.Item label="Start Date" name="startDate" rules={[{ required: true, message: "Start date is required" }]}>
-          <DatePicker style={{ width: "100%" }} />
-        </Form.Item>
-        <Form.Item label="End Date" name="endDate">
-          <DatePicker style={{ width: "100%" }} />
-        </Form.Item>
+        <Row gutter={16}>
+          <Col xs={24} md={12}>
+            <Form.Item label="Supervisor" name="supervisorId" rules={[{ required: true, message: "Supervisor is required" }]}>
+              <Select {...supervisorSelectProps} />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12}>
+            <Form.Item label="Driver" name="driverId" rules={[{ required: true, message: "Driver is required" }]}>
+              <Select {...driverSelectProps} />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={16}>
+          <Col xs={24} md={12}>
+            <Form.Item label="Vehicle" name="vehicleId">
+              <Select allowClear {...vehicleSelectProps} />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={16}>
+          <Col xs={24} md={12}>
+            <Form.Item label="Start Date" name="startDate" rules={[{ required: true, message: "Start date is required" }]}>
+              <DatePicker style={{ width: "100%" }} />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12}>
+            <Form.Item label="End Date" name="endDate">
+              <DatePicker style={{ width: "100%" }} />
+            </Form.Item>
+          </Col>
+        </Row>
+
         <Form.Item label="Notes" name="notes">
           <Input.TextArea rows={3} />
         </Form.Item>

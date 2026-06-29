@@ -1,5 +1,5 @@
 import { Edit, useForm, useSelect } from "@refinedev/antd";
-import { Form, Input, InputNumber, Select } from "antd";
+import { Form, Input, InputNumber, Select, Row, Col } from "antd";
 
 export const VehicleEdit = () => {
   const { formProps, saveButtonProps, queryResult } = useForm({
@@ -16,33 +16,47 @@ export const VehicleEdit = () => {
   return (
     <Edit saveButtonProps={saveButtonProps}>
       <Form {...formProps} layout="vertical">
-        <Form.Item
-          label="Registration Number"
-          name="registrationNumber"
-          rules={[{ required: true, message: "Registration number is required" }]}
-        >
-          <Input />
-        </Form.Item>
+        <Row gutter={16}>
+          <Col xs={24} md={12}>
+            <Form.Item
+              label="Registration Number"
+              name="registrationNumber"
+              rules={[{ required: true, message: "Registration number is required" }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12}>
+            <Form.Item label="Make" name="make">
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
 
-        <Form.Item label="Make" name="make">
-          <Input />
-        </Form.Item>
+        <Row gutter={16}>
+          <Col xs={24} md={12}>
+            <Form.Item label="Model" name="model">
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12}>
+            <Form.Item label="Year" name="year">
+              <InputNumber
+                min={1900}
+                max={new Date().getFullYear() + 1}
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
 
-        <Form.Item label="Model" name="model">
-          <Input />
-        </Form.Item>
-
-        <Form.Item label="Year" name="year">
-          <InputNumber
-            min={1900}
-            max={new Date().getFullYear() + 1}
-            style={{ width: "100%" }}
-          />
-        </Form.Item>
-
-        <Form.Item label="Image URL" name="image">
-          <Input />
-        </Form.Item>
+        <Row gutter={16}>
+          <Col xs={24} md={12}>
+            <Form.Item label="Image URL" name="image">
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
 
         <Form.Item label="Assign Drivers" name="driverIds">
           <Select
