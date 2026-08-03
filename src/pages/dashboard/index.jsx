@@ -141,7 +141,7 @@ export const DashboardPage = () => {
   return (
     <div>
       <Title level={3} style={{ marginBottom: 24 }}>
-        Operations Dashboard
+        Operational Dashboard
       </Title>
 
       {/* KPI Cards */}
