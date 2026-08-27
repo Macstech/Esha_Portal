@@ -2,8 +2,9 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 
+//if the currect page is login the url should be empty string otherwise it should be the api url
 const axiosInstance = axios.create({
-  baseURL: API_URL,
+  baseURL: window.location.pathname === "/login" ? "" : API_URL,
 });
 
 // Request interceptor: attach access token
